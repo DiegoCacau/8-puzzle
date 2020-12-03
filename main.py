@@ -5,8 +5,20 @@ import copy
 
 
 sys.setrecursionlimit(362890)
-
-
+# # local trace function which returns itself 
+# def my_tracer(frame, event, arg = None): 
+#     # extracts frame code 
+#     code = frame.f_code 
+  
+#     # extracts calling function name 
+#     func_name = code.co_name 
+  
+#     # extracts the line number 
+#     line_no = frame.f_lineno 
+  
+#     print(f"A {event} encountered in {func_name}() at line number {line_no} ") 
+  
+#     return my_tracer 
 
 def check_solubility(N, state):
 	inversions = 0
@@ -16,21 +28,22 @@ def check_solubility(N, state):
 			aux_arr.append(j)
 
 	i=0
-	for i in range(N):
-		j = i + 1
-		while j < N:
+	for i in range(len(aux_arr)):
+		j = i
+		while j < len(aux_arr)-1:
 			j = j + 1
-
+			print(aux_arr[i],aux_arr[j])
 			if(aux_arr[i]==0):
 				break
 			if(aux_arr[j] !=0 and 
 			   aux_arr[i] > aux_arr[j]):
 				inversions = inversions + 1
-	
+	print("inversions ", inversions)
 	if(inversions%2!=0 and N%2==1):
 		return False
 	elif(inversions%2==0 and N%2==1):
 		return True
+	return True
 
 
 def create_ended_hash(N):
@@ -161,7 +174,7 @@ def should_test(STATE, OLD_STATES):
 
 
 
-N = 2
+N = 3
 
 STATE = generate_board(N)
 
@@ -171,6 +184,12 @@ while check_solubility(N,STATE) == False:
 OLD_STATES = [hash(STATE)]
 
 END_STATE = create_ended_hash(N)
+
+if(OLD_STATES[0] == END_STATE):
+	print("Estado inicial já é o final")
+	sys.exit()
+
+# sys.settrace(my_tracer) 
 
 if not start(N, STATE, OLD_STATES, END_STATE):
 	print("Estado inicial não solucionável")
