@@ -21,7 +21,8 @@ function search(opt_options) {
         type: SearchType.BREADTH_FIRST,
         maxFrontierListLength: 0,
         maxExpandedNodesLength: 0,
-        iterativeDeepeningIndex: 0
+        iterativeDeepeningIndex: 0,
+        size: 3
     }, opt_options || {});
 
     Board.draw(options.node.state);

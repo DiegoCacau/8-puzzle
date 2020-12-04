@@ -5,8 +5,9 @@ var Node = function(opt_data) {
     this.parent = data.parent || null;
     this.cost = data.cost || 0;
     this.depth = data.depth || 0;
+    this.size = data.size || 3;
 
-    this.game = new Game(this.state);
+    this.game = new Game({state:this.state, n:this.size});
 }
 
 
@@ -19,6 +20,7 @@ Node.prototype.expand = function() {
     _.forEach(avaliableActionsAndStates, function(state, action) {
         var childData = {
             state: state,
+            size: that.size,
             parent: that,
             depth: that.depth + 1,
             cost: that.cost + 1 // TODO: Bu cost'u game'den alman lazim
