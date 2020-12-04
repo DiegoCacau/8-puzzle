@@ -1,5 +1,16 @@
-var Game = function(opt_state) {
-    this.state = opt_state || '012345678';
+var Game = function(opt_data) {
+    var data = opt_data || {};
+
+    this.size = data.n || 3;
+
+    let str = "0";
+    for(let i=1; i<data.n*data.n; i++){
+        str = str + " " + i.toString();
+    }
+
+    this.state = data.state || str;
+
+    console.log(this.state)
 };
 
 
@@ -11,13 +22,20 @@ Game.Actions = {
 };
 
 
-Game.DesiredState = '123456780';
+Game.DesiredState = function(){
+    let str = "";
+    for(let i=1; i<Game.size*Game.size; i++){
+        str = str + i.toString();
+    } 
+    str = str + "0";
+    return str;
+};
 
 
 Game.prototype.getAvaliableActionsAndStates = function() {
     var result = {};
 
-    var zeroIndex = this.state.indexOf('0');
+    var zeroIndex = this.state.split(' ').indexOf('0');
     var row = Math.floor(zeroIndex / 3);
     var column = zeroIndex % 3;
 
@@ -31,7 +49,7 @@ Game.prototype.getAvaliableActionsAndStates = function() {
 
 
 Game.prototype.getNextState = function(action) {
-    var zeroIndex = this.state.indexOf('0');
+    var zeroIndex = this.state.split(' ').indexOf('0');
     var newIndex;
 
     switch (action) {
@@ -51,10 +69,10 @@ Game.prototype.getNextState = function(action) {
             throw new Error('Unexpected action');
     }
 
-    var stateArr = this.state.split('');
+    var stateArr = this.state.split(' ');
     stateArr[zeroIndex] = stateArr[newIndex];
     stateArr[newIndex] = '0';
-    return stateArr.join('');
+    return stateArr.join(' ');
 };
 
 

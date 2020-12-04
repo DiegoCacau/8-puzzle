@@ -1,7 +1,7 @@
 var Node = function(opt_data) {
     var data = opt_data || {};
 
-    this.state = data.state || '012345678';
+    this.state = data.state || '0 1 2 3 4 5 6 7 8';
     this.parent = data.parent || null;
     this.cost = data.cost || 0;
     this.depth = data.depth || 0;

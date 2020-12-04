@@ -1,5 +1,8 @@
 var Visualization = {};
 
+Visualization.setSize = function(n){
+    Visualization.size = n;
+}
 
 Visualization.element = document.getElementById('visualization');
 
@@ -10,8 +13,8 @@ Visualization.draw = function(data) {
             hierarchical: {
                 direction: 'UD',
                 sortMethod: 'directed',
-                levelSeparation: 150,
-                nodeSpacing: 100,
+                levelSeparation: 100 + ((Visualization.size-2) * 50),
+                nodeSpacing: 100 + ((Visualization.size-2) * 50),
 
             }
         },
@@ -54,7 +57,7 @@ Visualization.importData = function(expandedNodes, frontierList, opt_winnerNode,
 
         data.nodes.push({
             id: node.state,//012345678
-            label: node.state.splice(6, 0, '\n').splice(3, 0, '\n'),
+            label: splice_size(node),
             // label: node.state + '\n (D:' + node.depth + ', MD:' + node.game.getManhattanDistance() + ')',
             color: winners[node.state] ? (opt_winnerColor || '#ccff33') : color
         });
@@ -85,3 +88,22 @@ Visualization.importData = function(expandedNodes, frontierList, opt_winnerNode,
 
     return data;
 };
+
+
+function splice_size(node){
+    let element = node.state;
+
+    // if(Visualization.size == 2){
+    //     element = node.state.splice(2, 0, '\n');
+    // }else if(Visualization.size == 3){
+    //     element = node.state.splice(6, 0, '\n').splice(3, 0, '\n');
+    // }
+
+    // console.log(element)
+    // for(let i=Visualization.size-1; i>=1; i--){
+    //     console.log(element)
+    //     element = element.splice(Visualization.size*i, 0, '\n');
+    // }
+    
+    return element.splice(Visualization.size, '\n');;
+}

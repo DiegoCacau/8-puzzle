@@ -174,7 +174,7 @@ def should_test(STATE, OLD_STATES):
 
 
 
-N = 3
+N = 2
 
 STATE = generate_board(N)
 

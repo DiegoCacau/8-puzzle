@@ -1,25 +1,29 @@
 var Board = {};
 
+Board.size = 3;
+
+Board.setSize = function(n){
+    Board.size = n;
+}
 
 Board.elements = {
-    '1': document.getElementById('board-item-1'),
-    '2': document.getElementById('board-item-2'),
-    '3': document.getElementById('board-item-3'),
-    '4': document.getElementById('board-item-4'),
-    '5': document.getElementById('board-item-5'),
-    '6': document.getElementById('board-item-6'),
-    '7': document.getElementById('board-item-7'),
-    '8': document.getElementById('board-item-8')
+    // '1': document.getElementById('board-item-1'),
+    // '2': document.getElementById('board-item-2'),
+    // '3': document.getElementById('board-item-3'),
+    // '4': document.getElementById('board-item-4'),
+    // '5': document.getElementById('board-item-5'),
+    // '6': document.getElementById('board-item-6'),
+    // '7': document.getElementById('board-item-7'),
+    // '8': document.getElementById('board-item-8')
 };
 
-
 Board.draw = function(state) {
-    state.split('').forEach(function(item, index) {
+    state.split(' ').forEach(function(item, index) {
         if (item == '0') return;
 
         var element = Board.elements[item];
-        var row = Math.floor(index / 3);
-        var column = index % 3;
+        var row = Math.floor(index / Board.size);
+        var column = index % Board.size;
 
         element.style.top = (row * element.offsetHeight) + 'px';
         element.style.left = (column * element.offsetWidth) + 'px';
@@ -61,3 +65,24 @@ Board.clearReplay = function() {
     window.isReplaying = false;
     var btn = document.getElementById('replayButton'); btn && (btn.textContent = 'Replay solution');
 };
+
+
+function create_board_pieces(){
+  for(let i=1; i< Board.size*Board.size; i++){
+    let id = i.toString();
+
+    let node = document.createElement("div");  
+    let textnode = document.createTextNode(id);
+    node.appendChild(textnode);
+    node.setAttribute("id", "board-item-" + id);
+    node.classList.add("board-item");
+
+    document.getElementById("board").appendChild(node);
+
+    Board.elements[id] = document.getElementById("board-item-" + id);
+  } 
+
+   let dimension = (50 *  Board.size).toString();
+   document.getElementById("board").style.height = dimension + "px";
+   document.getElementById("board").style.width = dimension + "px";
+}
