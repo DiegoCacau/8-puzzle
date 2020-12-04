@@ -6,16 +6,7 @@ Board.setSize = function(n){
     Board.size = n;
 }
 
-Board.elements = {
-    // '1': document.getElementById('board-item-1'),
-    // '2': document.getElementById('board-item-2'),
-    // '3': document.getElementById('board-item-3'),
-    // '4': document.getElementById('board-item-4'),
-    // '5': document.getElementById('board-item-5'),
-    // '6': document.getElementById('board-item-6'),
-    // '7': document.getElementById('board-item-7'),
-    // '8': document.getElementById('board-item-8')
-};
+Board.elements = {};
 
 Board.draw = function(state) {
     console.log("state:  ",state)

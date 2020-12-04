@@ -40,9 +40,9 @@ Game.prototype.getAvaliableActionsAndStates = function() {
     var column = zeroIndex % this.size;
 
     if (column > 0) result[Game.Actions.LEFT] = this.getNextState(Game.Actions.LEFT);
-    if (column < 2) result[Game.Actions.RIGHT] = this.getNextState(Game.Actions.RIGHT);
+    if (column < this.size -1) result[Game.Actions.RIGHT] = this.getNextState(Game.Actions.RIGHT);
     if (row > 0) result[Game.Actions.UP] = this.getNextState(Game.Actions.UP);
-    if (row < 2) result[Game.Actions.DOWN] = this.getNextState(Game.Actions.DOWN);
+    if (row < this.size -1) result[Game.Actions.DOWN] = this.getNextState(Game.Actions.DOWN);
 
     return result;
 };
@@ -60,10 +60,10 @@ Game.prototype.getNextState = function(action) {
             newIndex = zeroIndex + 1
             break;
         case Game.Actions.UP:
-            newIndex = zeroIndex - 3
+            newIndex = zeroIndex - this.size
             break;
         case Game.Actions.DOWN:
-            newIndex = zeroIndex + 3
+            newIndex = zeroIndex + this.size
             break;
         default:
             throw new Error('Unexpected action');
@@ -111,40 +111,6 @@ Game.prototype.randomize = function() {
 Game.prototype.getManhattanDistance = function() {
     var distance = 0;
 
-    // var oneIndex = this.state.split(" ").indexOf('1');
-    // var onePosition = Game.indexToRowColumn(oneIndex, this.size);
-    // distance += Math.abs(0 - onePosition.row) + Math.abs(0 - onePosition.column);
-
-    // var twoIndex = this.state.split(" ").indexOf('2');
-    // var twoPosition = Game.indexToRowColumn(twoIndex, this.size);
-    // distance += Math.abs(0 - twoPosition.row) + Math.abs(1 - twoPosition.column);
-
-    // var threeIndex = this.state.split(" ").indexOf('3');
-    // var threePosition = Game.indexToRowColumn(threeIndex, this.size);
-    // distance += Math.abs(0 - threePosition.row) + Math.abs(2 - threePosition.column);
-
-    // var fourIndex = this.state.split(" ").indexOf('4');
-    // var fourPosition = Game.indexToRowColumn(fourIndex, this.size);
-    // distance += Math.abs(1 - fourPosition.row) + Math.abs(0 - fourPosition.column);
-
-    // var fiveIndex = this.state.split(" ").indexOf('5');
-    // var fivePosition = Game.indexToRowColumn(fiveIndex, this.size);
-    // distance += Math.abs(1 - fivePosition.row) + Math.abs(1 - fivePosition.column);
-
-    // var sixIndex = this.state.split(" ").indexOf('6');
-    // var sixPosition = Game.indexToRowColumn(sixIndex, this.size);
-    // distance += Math.abs(1 - sixPosition.row) + Math.abs(2 - sixPosition.column);
-
-    // var sevenIndex = this.state.split(" ").indexOf('7');
-    // var sevenPosition = Game.indexToRowColumn(sevenIndex, this.size);
-    // distance += Math.abs(2 - sevenPosition.row) + Math.abs(0 - sevenPosition.column);
-
-    // var eightIndex = this.state.split(" ").indexOf('8');
-    // var eightPosition = Game.indexToRowColumn(eightIndex, this.size);
-    // distance += Math.abs(2 - eightPosition.row) + Math.abs(1 - eightPosition.column);
-
-    // console.log("distance 1: ",distance)
-    // distance = 0;
 
     for(let i=1; i<this.size*this.size; i++){
         let index = this.state.split(" ").indexOf(i.toString());
@@ -155,8 +121,6 @@ Game.prototype.getManhattanDistance = function() {
 
         distance += Math.abs(expected_x - position.row) + Math.abs(expected_y - position.column);
     }
-
-    // console.log("distance 2: ",distance)
 
     return distance;
 };

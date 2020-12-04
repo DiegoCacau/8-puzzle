@@ -1,4 +1,4 @@
-var N = 3;
+var N = 4;
 var testing_search = true;
 
 
@@ -15,7 +15,10 @@ Board.setSize(N)
 Visualization.setSize(N)
 create_board_pieces()
 
-var game = new Game({n:N, state: "1 2 3 4 0 5 7 8 6"});
+//var game = new Game({n:N, state: "1 0 3 4 2 5 7 8 6"});
+//var game = new Game({n:N, state: "3 7 0 1 2 5 8 4 6"});
+//var game = new Game({n:N, state: "2 3 1 0"});
+var game = new Game({n:N, state: "1 2 3 4 5 0 7 8 9 6 10 12 13 14 11 15"});
 //var game = new Game({n:N});
 
 Board.draw(game.state);
@@ -31,6 +34,8 @@ if(N == 3 && !testing_search){
 	let no2 = new Node({state: "2 6 3 1 8 4 0 7 5", parent: no1, cost: 2, depth: 2, size:N})
 
 	console.log(no0)
+
+
 
 	let frontierList = [
 	new Node({state: "2 6 3 8 4 0 1 7 5", parent: no0, cost: 1, depth: 1, size:N}),
