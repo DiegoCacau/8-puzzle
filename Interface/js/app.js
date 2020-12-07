@@ -1,9 +1,11 @@
-var N = 4;
+var N = 3;
 var testing_search = true;
 
 
 var searchButton = document.getElementById('search');
 var searchStepButton = document.getElementById('searchStep');
+var randomizeButton = document.getElementById('randomize');
+
 var searchStepOptions = null;
 
 
@@ -18,8 +20,8 @@ create_board_pieces()
 //var game = new Game({n:N, state: "1 0 3 4 2 5 7 8 6"});
 //var game = new Game({n:N, state: "3 7 0 1 2 5 8 4 6"});
 //var game = new Game({n:N, state: "2 3 1 0"});
-var game = new Game({n:N, state: "1 2 3 4 5 0 7 8 9 6 10 12 13 14 11 15"});
-//var game = new Game({n:N});
+//var game = new Game({n:N, state: "1 2 3 4 5 0 7 8 9 6 10 12 13 14 11 15"});
+var game = new Game({n:N});
 
 Board.draw(game.state);
 
@@ -147,7 +149,12 @@ else{
 
 
 
-
+randomizeButton.addEventListener('click', function() {
+    Board.clearReplay();
+    game.randomize();
+    Board.draw(game.state);
+    //searchResultDiv.innerHTML = '';
+}, false);
 
 
 searchButton.addEventListener('click', function() {

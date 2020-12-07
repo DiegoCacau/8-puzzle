@@ -104,53 +104,11 @@ function search(opt_options) {
 
 
 function getNextNode(options) {
-    switch (options.type) {
-        case SearchType.BREADTH_FIRST:
-            return options.frontierList.shift();
-        case SearchType.DEPTH_FIRST:
-            return options.frontierList.pop();
-        case SearchType.UNIFORM_COST:
-            var bestNode = _.minBy(options.frontierList, function(node) {
-                return node.cost;
-            });
+    var bestNode = _.minBy(options.frontierList, function(node) {
+        return node.game.getManhattanDistance() + node.cost;
+    });
 
-            _.remove(options.frontierList, bestNode);
+    _.remove(options.frontierList, bestNode);
 
-            return bestNode;
-        case SearchType.ITERATIVE_DEEPENING:
-            var nextNode = options.frontierList.pop();
-
-            // Start from top
-            if (!nextNode) {
-                options.iterativeDeepeningIndex++;
-
-                if (options.depthLimit && options.iterativeDeepeningIndex > options.depthLimit)
-                    return;
-
-                options.frontierList = [];
-                options.expandedNodes = {};
-
-                return new Node({state: game.state});
-            }
-
-            return nextNode;
-        case SearchType.GREEDY_BEST:
-            var bestNode = _.minBy(options.frontierList, function(node) {
-                return node.game.getManhattanDistance();
-            });
-
-            _.remove(options.frontierList, bestNode);
-
-            return bestNode;
-        case SearchType.A_STAR:
-            var bestNode = _.minBy(options.frontierList, function(node) {
-                return node.game.getManhattanDistance() + node.cost;
-            });
-
-            _.remove(options.frontierList, bestNode);
-
-            return bestNode;
-        default:
-            throw new Error('Unsupported search type');
-    }
+    return bestNode;
 }

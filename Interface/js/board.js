@@ -77,4 +77,6 @@ function create_board_pieces(){
    let dimension = (50 *  Board.size).toString();
    document.getElementById("board").style.height = dimension + "px";
    document.getElementById("board").style.width = dimension + "px";
+
+   document.getElementById("controls").style.top = (120 + ((Board.size - 2) * 50)).toString() + "px";
 }
