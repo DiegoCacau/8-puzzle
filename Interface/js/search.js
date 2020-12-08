@@ -1,12 +1,3 @@
-var SearchType = {
-    BREADTH_FIRST: 'breadthFirst',
-    UNIFORM_COST: 'uniformCost',
-    DEPTH_FIRST: 'depthFirst',
-    ITERATIVE_DEEPENING: 'iterativeDeepening',
-    GREEDY_BEST: 'greedyBest',
-    A_STAR: 'aStar'
-};
-
 function search(opt_options) {
     var options = _.assign({
         node: null,
@@ -18,7 +9,6 @@ function search(opt_options) {
         expandCheckOptimization: false,
         callback: function() {},
         stepCallback: null,
-        type: SearchType.BREADTH_FIRST,
         maxFrontierListLength: 0,
         maxExpandedNodesLength: 0,
         iterativeDeepeningIndex: 0,
@@ -38,9 +28,6 @@ function search(opt_options) {
 
     // Filter just-expanded nodes
     var expandedUnexploredList = expandedList.filter(function(node) {
-        // Check iterative deeping index
-        if (options.type == SearchType.ITERATIVE_DEEPENING && node.depth > options.iterativeDeepeningIndex)
-            return false;
 
         // Check depth
         if (options.depthLimit && node.depth > options.depthLimit)

@@ -3,14 +3,13 @@ var Game = function(opt_data) {
 
     this.size = data.n || 3;
 
-    let str = "0";
+    let str = "0"; 
     for(let i=1; i<data.n*data.n; i++){
         str = str + " " + i.toString();
     }
 
     this.state = data.state || str;
 
-    console.log(this.state)
 };
 
 
@@ -72,6 +71,11 @@ Game.prototype.getNextState = function(action) {
     var stateArr = this.state.split(' ');
     stateArr[zeroIndex] = stateArr[newIndex];
     stateArr[newIndex] = '0';
+
+    // stateArr = stateArr.filter(function(item) {
+    //     return (item != "" && item != undefined)
+    // })
+    
     return stateArr.join(' ');
 };
 
@@ -105,6 +109,7 @@ Game.prototype.randomize = function() {
     _.times(iteration, function() {
         that.state = randomNextState();
     });
+
 };
 
 

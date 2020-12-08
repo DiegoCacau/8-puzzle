@@ -9,7 +9,6 @@ Board.setSize = function(n){
 Board.elements = {};
 
 Board.draw = function(state) {
-    console.log("state:  ",state)
     state.split(' ').forEach(function(item, index) {
         if (item == '0') return;
 

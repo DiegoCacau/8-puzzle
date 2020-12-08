@@ -5,6 +5,8 @@ var testing_search = true;
 var searchButton = document.getElementById('search');
 var searchStepButton = document.getElementById('searchStep');
 var randomizeButton = document.getElementById('randomize');
+var boardSizeInput = document.getElementById('boardSize');
+var startValuesButton = document.getElementById('startValues');
 
 var searchStepOptions = null;
 
@@ -153,7 +155,46 @@ randomizeButton.addEventListener('click', function() {
     Board.clearReplay();
     game.randomize();
     Board.draw(game.state);
-    //searchResultDiv.innerHTML = '';
+}, false);
+
+boardSizeInput.addEventListener('change', (event) => {
+
+  	console.log("Mudando tamanho do tabuleiro")
+  	N = parseInt(event.target.value, 10);
+
+  	document.querySelectorAll('.board-item').forEach(function(a){
+		a.remove()
+	})
+
+  	Board.clearReplay();
+  	searchStepOptions = null;
+  	Board.setSize(N)
+	Visualization.setSize(N)
+	create_board_pieces()
+
+	delete game;
+	game = new Game({n:N});
+
+	Board.draw(game.state);
+});
+
+startValuesButton.addEventListener('click', function() {
+    Board.clearReplay();
+    let str_state = prompt('Entre com os valores iniciais, do topo esquerdo para o direito inferior, separados por um -, e.g. "2-3-1-4-5-8-7-0');
+
+    let final_state = "";
+    let splited = str_state.split("-");
+    for(let i=0; i<splited.length; i++){
+    	if(i == 0){
+    		final_state = splited[i];
+    	}
+    	else{
+    		final_state = final_state + " " + splited[i];
+    	}
+    }
+
+    game.state = final_state;
+    Board.draw(game.state);
 }, false);
 
 
@@ -177,7 +218,6 @@ searchButton.addEventListener('click', function() {
         iterationLimit: iterationLimit,
         depthLimit: depthLimit,
         expandCheckOptimization: false,
-        type: "aStar",
         size: N,
         callback: searchCallback
     });
@@ -203,7 +243,6 @@ function searchCallback(err, options) {
 
 
 
-
 searchStepButton.addEventListener('click', function() {
     Board.clearReplay();
 
@@ -225,7 +264,6 @@ searchStepButton.addEventListener('click', function() {
         iterationLimit: iterationLimit,
         depthLimit: depthLimit,
         expandCheckOptimization: false,
-        type: "aStar",
         stepCallback: stepCallback,
         callback: searchCallback
     });
