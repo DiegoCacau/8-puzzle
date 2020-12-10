@@ -15,3 +15,9 @@ Para rodar os testes, basta:
 
 ## Sobre os Nós
 Cada nó da árvore representa um estado do tabuleiro e ao clicar em um, o valor da Manhattan Distance é mostrada abaixo do campo para inserir o tamanho do tabuleiro.
+
+
+## Sobre o Resultado
+A forma de identificar um resultado com sucesso é se houver um caminho em verde, percorrido na árvore. 
+Por exemplo, para a entrada `3-0-1-2` todos os nós, ao final de um processamento, ficam cinza, isto é esse é um valor inicial não solucionável. 
+Entretanto, para o valor inicial `3-1-2-0` é possível ver o caminho que leva à solução.
