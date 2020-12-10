@@ -1,7 +1,7 @@
 # N-Puzzle
 
 Para rodar o simulador, basta abrir o arquivo `index.html` no browser (testes foram feitos no Chrome, havendo a possibilidade de não haver compatibilidade com browsers mais antigos, como Internet Explorer 6). É nessário também ter acesso à internet já que alguns arquivos de estilo e de bibliotecas usadas para gerar a àrvore estão hospedados no `Cloudflare`.
-
+Outra limitação do simulador é que no caso de a árvore ficar muito grande (muito mais do que 100 nós), a gereção da visualização da árvore pode travar. Isso acontece por uma limitação na iteração entre o browser e a biblioteca que usamos para gerar a árvore. Nos nossos testes, verificamos que isso tende a só ocorrer em tabuleiros de tamanho 4x4 ou maiores.
 
 ## Uso
 
