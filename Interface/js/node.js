@@ -23,7 +23,7 @@ Node.prototype.expand = function() {
             size: that.size,
             parent: that,
             depth: that.depth + 1,
-            cost: that.cost + 1 // TODO: Bu cost'u game'den alman lazim
+            cost: that.cost + 1
         };
 
         result.push(new Node(childData));

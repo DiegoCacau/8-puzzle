@@ -1,5 +1,7 @@
 var Visualization = {};
 
+var distanceSpan = document.getElementById('searchResult');
+
 Visualization.setSize = function(n){
     Visualization.size = n;
 }
@@ -36,6 +38,8 @@ Visualization.draw = function(data) {
     window.network = new vis.Network(Visualization.element, data, options);
     window.network.on('click', function (params) {
         if (params.nodes.length > 0) {
+            let no = new Node({state: params.nodes[0], parent: null, cost: 0, depth: 0, size:N})
+            distanceSpan.innerHTML = "ManhattanDistance: " + no.game.getManhattanDistance().toString();
             Board.draw(params.nodes[0]);
             Board.clearReplay();
         }
@@ -56,9 +60,8 @@ Visualization.importData = function(expandedNodes, frontierList, opt_winnerNode,
             return;
 
         data.nodes.push({
-            id: node.state,//012345678
+            id: node.state,
             label: splice_size(node),
-            // label: node.state + '\n (D:' + node.depth + ', MD:' + node.game.getManhattanDistance() + ')',
             color: winners[node.state] ? (opt_winnerColor || '#ccff33') : color
         });
 
@@ -92,18 +95,6 @@ Visualization.importData = function(expandedNodes, frontierList, opt_winnerNode,
 
 function splice_size(node){
     let element = node.state;
-
-    // if(Visualization.size == 2){
-    //     element = node.state.splice(2, 0, '\n');
-    // }else if(Visualization.size == 3){
-    //     element = node.state.splice(6, 0, '\n').splice(3, 0, '\n');
-    // }
-
-    // console.log(element)
-    // for(let i=Visualization.size-1; i>=1; i--){
-    //     console.log(element)
-    //     element = element.splice(Visualization.size*i, 0, '\n');
-    // }
     
     return element.splice(Visualization.size, '\n');;
 }

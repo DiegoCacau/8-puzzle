@@ -1,5 +1,4 @@
 var N = 3;
-var testing_search = true;
 
 
 var searchButton = document.getElementById('search');
@@ -7,6 +6,7 @@ var searchStepButton = document.getElementById('searchStep');
 var randomizeButton = document.getElementById('randomize');
 var boardSizeInput = document.getElementById('boardSize');
 var startValuesButton = document.getElementById('startValues');
+var distanceSpan = document.getElementById('searchResult');
 
 var searchStepOptions = null;
 
@@ -31,128 +31,9 @@ var boardDiv = document.getElementById('board');
 
 
 
-/**********    EX N=3   **********/
-if(N == 3 && !testing_search){
-	let no0 = new Node({state: "2 6 3 8 0 4 1 7 5", parent: null, cost: 0, depth: 0, size:N})
-	let no1 = new Node({state: "2 6 3 0 8 4 1 7 5", parent: no0, cost: 1, depth: 1, size:N})
-	let no2 = new Node({state: "2 6 3 1 8 4 0 7 5", parent: no1, cost: 2, depth: 2, size:N})
-
-	console.log(no0)
-
-
-
-	let frontierList = [
-	new Node({state: "2 6 3 8 4 0 1 7 5", parent: no0, cost: 1, depth: 1, size:N}),
-	new Node({state: "2 0 3 8 6 4 1 7 5", parent: no0, cost: 1, depth: 1, size:N}),
-	new Node({state: "2 6 3 8 7 4 1 0 5", parent: no0, cost: 1, depth: 1, size:N}),
-	new Node({state: "0 6 3 2 8 4 1 7 5", parent: no1, cost: 2, depth: 2, size:N})]
-
-
-
-	let expandedNodes = {}
-
-	expandedNodes["2 6 3 0 8 4 1 7 5"] = no0;
-	expandedNodes["2 6 3 8 0 4 1 7 5"] = no1;
-
-
-	/**********    EX N=3  FIM  **********/
-
-	var visualizationData = Visualization.importData(
-    expandedNodes,
-    frontierList,
-    no1,
-    '#ffb366'
-	);
-
-	console.log("todos",visualizationData)
-
-
-	console.log("a",expandedNodes)
-	console.log("b",frontierList)
-	console.log("c",no2)
-	Visualization.draw(visualizationData);
-}
-else if(N == 2 && !testing_search){
-/**********    EX N=2   **********/
-
-	let no0 = new Node({state: "2 3 1 0", parent: null, cost: 0, depth: 0, size:N})
-	let no1 = new Node({state: "2 0 1 3", parent: no0, cost: 1, depth: 1, size:N})
-
-
-	let frontierList = [
-	new Node({state: "2 3 0 1", parent: no0, cost: 1, depth: 1, size:N}),
-	new Node({state: "1 2 3 0", parent: no1, cost: 2, depth: 2, size:N})]
-
-
-	let expandedNodes = {}
-
-	expandedNodes["2 3 1 0"] = no0;
-	expandedNodes["2 0 1 3"] = no1;
-
-/**********    EX N=2  FIM  **********/
-
-	var visualizationData = Visualization.importData(
-    expandedNodes,
-    frontierList,
-    no1,
-    '#ffb366'
-	);
-
-	console.log("todos",visualizationData)
-
-
-	console.log("a",expandedNodes)
-	console.log("b",frontierList)
-	console.log("c",no1)
-	Visualization.draw(visualizationData);
-}
-else if(N == 4 && !testing_search){
-	let no0 = new Node({state: "2 6 3 8 0 4 1 7 5 9 10 11 12 13 14 15", parent: null, cost: 0, depth: 0, size:N})
-	let no1 = new Node({state: "2 6 3 0 8 4 1 7 5 9 10 11 12 13 14 15", parent: no0, cost: 1, depth: 1, size:N})
-	let no2 = new Node({state: "2 6 3 1 8 4 0 7 5 9 10 11 12 13 14 15", parent: no1, cost: 2, depth: 2, size:N})
-
-	console.log(no0)
-
-	let frontierList = [
-	new Node({state: "2 6 3 8 4 0 1 7 5 9 10 11 12 13 14 15", parent: no0, cost: 1, depth: 1, size:N}),
-	new Node({state: "2 0 3 8 6 4 1 7 5 9 10 11 12 13 14 15", parent: no0, cost: 1, depth: 1, size:N}),
-	new Node({state: "2 6 3 8 7 4 1 0 5 9 10 11 12 13 14 15", parent: no0, cost: 1, depth: 1, size:N}),
-	new Node({state: "0 6 3 2 8 4 1 7 5 9 10 11 12 13 14 15", parent: no1, cost: 2, depth: 2, size:N})]
-
-
-
-	let expandedNodes = {}
-
-	expandedNodes["2 6 3 0 8 4 1 7 5 9 10 11 12 13 14 15"] = no0;
-	expandedNodes["2 6 3 8 0 4 1 7 5 9 10 11 12 13 14 15"] = no1;
-
-
-	/**********    EX N=3  FIM  **********/
-
-	var visualizationData = Visualization.importData(
-    expandedNodes,
-    frontierList,
-    no1,
-    '#ffb366'
-	);
-
-	console.log("todos",visualizationData)
-
-
-	console.log("a",expandedNodes)
-	console.log("b",frontierList)
-	console.log("c",no2)
-	Visualization.draw(visualizationData);
-}
-else{
-
-}
-
-
-
-
 randomizeButton.addEventListener('click', function() {
     Board.clearReplay();
+    searchStepOptions = null;
     game.randomize();
     Board.draw(game.state);
 }, false);
@@ -178,23 +59,28 @@ boardSizeInput.addEventListener('change', (event) => {
 	Board.draw(game.state);
 });
 
-startValuesButton.addEventListener('click', function() {
-    Board.clearReplay();
+startValuesButton.addEventListener('click', function() { 
     let str_state = prompt('Entre com os valores iniciais, do topo esquerdo para o direito inferior, separados por um -, e.g. "2-3-1-4-5-8-7-0');
 
-    let final_state = "";
-    let splited = str_state.split("-");
-    for(let i=0; i<splited.length; i++){
-    	if(i == 0){
-    		final_state = splited[i];
-    	}
-    	else{
-    		final_state = final_state + " " + splited[i];
-    	}
-    }
+    if(str_state){
+    	let final_state = "";
+	    let splited = str_state.split("-");
+	    for(let i=0; i<splited.length; i++){
+	    	if(i == 0){
+	    		final_state = splited[i];
+	    	}
+	    	else{
+	    		final_state = final_state + " " + splited[i];
+	    	}
+	    }
 
-    game.state = final_state;
-    Board.draw(game.state);
+	    Board.clearReplay();
+	    searchStepOptions = null;
+
+	    game.state = final_state;
+	    Board.draw(game.state);
+    }
+    
 }, false);
 
 

@@ -71,10 +71,6 @@ Game.prototype.getNextState = function(action) {
     var stateArr = this.state.split(' ');
     stateArr[zeroIndex] = stateArr[newIndex];
     stateArr[newIndex] = '0';
-
-    // stateArr = stateArr.filter(function(item) {
-    //     return (item != "" && item != undefined)
-    // })
     
     return stateArr.join(' ');
 };
@@ -88,7 +84,6 @@ Game.prototype.isFinished = function() {
 Game.prototype.randomize = function() {
     var that = this;
     var states = {};
-    // var iteration = parseInt(prompt('How many random moves from desired state?'));
     var iteration = 100;
 
     if (!iteration || isNaN(iteration))

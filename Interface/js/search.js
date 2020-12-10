@@ -91,6 +91,8 @@ function search(opt_options) {
 
 
 function getNextNode(options) {
+
+    // A*
     var bestNode = _.minBy(options.frontierList, function(node) {
         return node.game.getManhattanDistance() + node.cost;
     });
